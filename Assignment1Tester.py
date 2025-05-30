@@ -26,6 +26,7 @@ if __name__ == '__main__':
             conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
 
             testHelper.deleteAllPublicTables(conn)
+            
 
             [result, e] = testHelper.testloadratings(MyAssignment, RATINGS_TABLE, INPUT_FILE_PATH, conn, ACTUAL_ROWS_IN_INPUT_FILE)
             if result :
@@ -46,8 +47,10 @@ if __name__ == '__main__':
                 print("rangeinsert function pass!")
             else:
                 print("rangeinsert function fail!")
-
+              
+                     
             testHelper.deleteAllPublicTables(conn)
+
             MyAssignment.loadratings(RATINGS_TABLE, INPUT_FILE_PATH, conn)
 
             [result, e] = testHelper.testroundrobinpartition(MyAssignment, RATINGS_TABLE, 5, conn, 0, ACTUAL_ROWS_IN_INPUT_FILE)
