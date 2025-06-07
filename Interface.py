@@ -5,9 +5,9 @@
 
 import psycopg2
 import psycopg2
-import psycopg2.extras # For execute_values
-import psycopg2.sql as sql # For safe SQL query composition
-import io # For StringIO with copy_expert
+import psycopg2.extras
+import psycopg2.sql as sql
+import io 
 
 
 DATABASE_NAME = 'dds_assgn1'
