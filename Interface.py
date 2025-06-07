@@ -46,7 +46,7 @@ def loadratings(ratingstablename, ratingsfilepath, openconnection):
     """
     Function to load data in @ratingsfilepath file to a table called @ratingstablename.
     """
-    main_table_name = ratingstablename # As per problem description
+    main_table_name = ratingstablename
     main_table_identifier = sql.Identifier(main_table_name)
     
     cursor = openconnection.cursor()
