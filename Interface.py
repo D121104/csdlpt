@@ -4,7 +4,6 @@
 #
 
 import psycopg2
-import psycopg2
 import psycopg2.extras
 import psycopg2.sql as sql
 import io 
