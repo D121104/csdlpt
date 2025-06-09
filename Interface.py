@@ -77,10 +77,10 @@ def loadratings(ratingstablename, ratingsfilepath, openconnection):
         openconnection.commit()
 
     except FileNotFoundError:
-        print(f"Error: File not found at {ratingsfilepath}")
+        print(f"Không tim thấy file theo đường dẫn {ratingsfilepath}")
         openconnection.rollback()
     except Exception as e:
-        print(f"Error loading data into '{main_table_name}': {e}")
+        print(f"Lỗi khi tải dữ liệu vào bảng '{main_table_name}': {e}")
         openconnection.rollback()
 
 def rangepartition(ratingstablename, numberofpartitions, openconnection):
@@ -95,7 +95,7 @@ def rangepartition(ratingstablename, numberofpartitions, openconnection):
     create_metadata_tables_if_not_exists(cursor)
     
     if numberofpartitions <= 0:
-        print("Error: Number of partitions (N) must be positive.")
+        print("Lỗi: Số phân mảnh phải > 0")
         return
 
     min_rating_val = 0.0
@@ -169,7 +169,7 @@ def roundrobinpartition(ratingstablename, numberofpartitions, openconnection):
     create_metadata_tables_if_not_exists(cursor)
     
     if numberofpartitions <= 0:
-        print("Error: Number of partitions (N) must be positive.")
+        print("Số phân mảnh phải > 0")
         return
 
     original_table_identifier = sql.Identifier(ratingstablename)
@@ -193,7 +193,7 @@ def roundrobinpartition(ratingstablename, numberofpartitions, openconnection):
     all_rows = cursor.fetchall()
 
     if not all_rows:
-        # print(f"No data in '{ratingstablename}' to partition.")
+        # print(f"Không có dữ liệu trong bảng")
         pass
     else:
         for row_index, row_data in enumerate(all_rows):
@@ -295,13 +295,13 @@ def rangeinsert(ratingstablename, userid, itemid, rating, openconnection):
     meta_data = cursor.fetchone()
 
     if not meta_data:
-        print(f"Error: Metadata for range partitioning of '{ratingstablename}' not found. Run Range_Partition first.")
+        print(f"Không tim thấy metadata cho bảng'{ratingstablename}' theo phân mảnh theo range")
         con.rollback()
         return
 
     N, min_val, max_val = meta_data
     if N <= 0:
-        print(f"Error: Invalid number of partitions ({N}) in metadata for '{ratingstablename}'.")
+        print(f"Số lượng phân mảnh cho bảng '{ratingstablename}' trong meta bị lỗi.")
         con.rollback()
         return
 
